@@ -1,20 +1,22 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #121212;
+  font-family: Arial, sans-serif;         /* Fuente principal */
+  background-color: #121212;              /* Fondo oscuro */
   margin: 0;
   padding: 20px;
-  color: #e0e0e0;
+  color: #e0e0e0;                         /* Color de texto principal */
 }
 
+/* Contenedor principal de la app */
 .App {
-  max-width: 600px;
-  margin: auto;
-  background: #1e1e1e;
+  max-width: 600px;                       /* Ancho máximo */
+  margin: auto;                           /* Centrado horizontal */
+  background: #1e1e1e;                    /* Fondo del contenedor */
   padding: 24px;
-  border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+  border-radius: 8px;                     /* Bordes redondeados */
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.7); /* Sombra */
 }
 
+/* Título principal */
 h1 {
   text-align: center;
   color: #ffffff;
@@ -22,21 +24,24 @@ h1 {
   font-weight: 600;
 }
 
+/* Contenedor del formulario */
 .form-container {
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
 }
 
+/* Estilos del formulario */
 form {
   display: flex;
-  gap: 10px;
+  gap: 10px;                              /* Espacio entre input y botón */
   width: 100%;
   max-width: 400px;
   margin: 0 auto 20px auto;
   align-items: center;
 }
 
+/* Input de texto principal */
 input[type="text"] {
   flex: 1;
   padding: 14px 16px;
@@ -50,12 +55,14 @@ input[type="text"] {
   transition: border-color 0.3s;
 }
 
+/* Input de texto cuando está enfocado */
 input[type="text"]:focus {
   outline: none;
   border-color: #4caf50;
   background: #1e1e1e;
 }
 
+/* Botón general */
 button {
   padding: 10px 16px;
   border: none;
@@ -68,21 +75,25 @@ button {
   transition: background-color 0.3s ease;
 }
 
+/* Botón cuando el mouse está encima */
 button:hover {
   background-color: #66bb6a;
 }
 
+/* Contenedor de la lista con scroll si es necesario */
 .list-container {
   max-height: 400px;
   overflow-y: auto;
 }
 
+/* Lista sin viñetas ni márgenes */
 ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
+/* Cada elemento de la lista */
 li {
   display: flex;
   justify-content: space-between;
@@ -93,15 +104,18 @@ li {
   background: transparent;
 }
 
+/* El último elemento de la lista sin borde inferior */
 li:last-child {
   border-bottom: none;
 }
 
+/* Contenedor de los botones de acción */
 .button-container {
   display: flex;
   gap: 8px;
 }
 
+/* Botones dentro del contenedor de botones */
 .button-container button {
   background-color: #2a2a2a;
   color: #e0e0e0;
@@ -112,34 +126,40 @@ li:last-child {
   transition: background-color 0.3s, border-color 0.3s;
 }
 
+/* Hover para los botones de acción */
 .button-container button:hover {
   background-color: #3d3d3d;
   border-color: #4caf50;
   color: #4caf50;
 }
 
+/* Botón de editar */
 .button-container button.edit {
   color: #81c784;
   border-color: #81c784;
 }
 
+/* Hover para botón de editar */
 .button-container button.edit:hover {
   background-color: #4caf50;
   color: #121212;
   border-color: #4caf50;
 }
 
+/* Botón de eliminar */
 .button-container button.delete {
   color: #e57373;
   border-color: #e57373;
 }
 
+/* Hover para botón de eliminar */
 .button-container button.delete:hover {
   background-color: #ef5350;
   color: #121212;
   border-color: #ef5350;
 }
 
+/* Botón de agregar */
 .button-container button.add,
 form button.add {
   background-color: #388e3c;
@@ -147,11 +167,13 @@ form button.add {
   border: none;
 }
 
+/* Hover para botón de agregar */
 .button-container button.add:hover,
 form button.add:hover {
   background-color: #4caf50;
 }
 
+/* Input personalizado con clase mi-input */
 .mi-input {
   width: 600px;
   height: 36px;
@@ -165,6 +187,7 @@ form button.add:hover {
   transition: border-color 0.3s;
 }
 
+/* Input personalizado cuando está enfocado */
 .mi-input:focus {
   outline: none;
   border-color: #4caf50;
