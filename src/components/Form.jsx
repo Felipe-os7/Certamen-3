@@ -12,6 +12,7 @@ function Form({ addItem, itemToEdit, updateItem }) {
 
     // useEffect se ejecuta cuando cambia itemToEdit
     useEffect(() => {
+        // Si hay un item para editar, carga sus valores en el formulario
         if (itemToEdit) {
             // Convierte el promedio a string sin punto si es decimal
             let promedioStr = itemToEdit.promedio ? String(itemToEdit.promedio).replace('.', '') : '';
@@ -21,6 +22,7 @@ function Form({ addItem, itemToEdit, updateItem }) {
                 promedio: promedioStr
             });
         } else {
+            // Si no hay item para editar, limpia el formulario
             setInput({ nombre: '', asignatura: '', promedio: '' });
         }
     }, [itemToEdit]);
@@ -33,6 +35,7 @@ function Form({ addItem, itemToEdit, updateItem }) {
         const capitalizeWords = (str) =>
             str.replace(/\b\w/g, char => char.toUpperCase());
 
+        // Actualiza el estado del input, capitalizando si es nombre o asignatura
         setInput(prev => ({
             ...prev,
             [name]:
@@ -45,29 +48,37 @@ function Form({ addItem, itemToEdit, updateItem }) {
     // Maneja el envío del formulario
     const handleSubmit = (e) => {
         e.preventDefault();
+        // Valida que los campos no estén vacíos
         if (!input.nombre.trim() || !input.asignatura.trim() || input.promedio === '') return;
 
+        // Transforma el promedio ingresado a decimal según la cantidad de dígitos
         let promedioStr = input.promedio.replace('.', ''); 
         let promedioNum;
 
         if (promedioStr.length === 2) {
+            // Ejemplo: "55" -> 5.5
             promedioNum = parseFloat(`${promedioStr[0]}.${promedioStr[1]}`);
         } else if (promedioStr.length === 3) {
-
+            // Ejemplo: "675" -> 6.75
             promedioNum = parseFloat(`${promedioStr[0]}.${promedioStr.slice(1)}`);
         } else if (promedioStr.length === 1) {
+            // Ejemplo: "7" -> 7.0
             promedioNum = parseFloat(`${promedioStr[0]}.0`);
         } else {
+            // Si ya tiene punto, lo toma directo
             promedioNum = parseFloat(input.promedio);
         }
 
+        // Valida que el promedio sea un número válido entre 0 y 7
         if (isNaN(promedioNum) || promedioNum < 0 || promedioNum > 7) return;
 
+        // Si se está editando, actualiza el item, si no, agrega uno nuevo
         if (itemToEdit) {
             updateItem({ ...itemToEdit, ...input, promedio: promedioNum });
         } else {
             addItem({ ...input, promedio: promedioNum });
         }
+        // Limpia el formulario después de agregar o actualizar
         setInput({ nombre: '', asignatura: '', promedio: '' });
     };
 
