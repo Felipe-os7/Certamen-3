@@ -3,48 +3,100 @@ import React, { useState, useEffect } from 'react';
 
 // Componente funcional Form que recibe props para agregar, editar y actualizar ítems
 function Form({ addItem, itemToEdit, updateItem }) {
-    // Estado local para el valor del input
-    const [input, setInput] = useState('');
+    // Estado local para los valores del formulario
+    const [input, setInput] = useState({
+        nombre: '',
+        asignatura: '',
+        promedio: ''
+    });
 
     // useEffect se ejecuta cuando cambia itemToEdit
     useEffect(() => {
         if (itemToEdit) {
-            // Si hay un ítem para editar, coloca su valor en el input
-            setInput(itemToEdit.value);
+            // Si hay un ítem para editar, coloca sus valores en el formulario
+            setInput({
+                nombre: itemToEdit.nombre || '',
+                asignatura: itemToEdit.asignatura || '',
+                promedio: itemToEdit.promedio || ''
+            });
         } else {
-            // Si no, limpia el input
-            setInput('');
+            // Si no, limpia el formulario
+            setInput({ nombre: '', asignatura: '', promedio: '' });
         }
     }, [itemToEdit]);
 
+    // Maneja el cambio en los campos del formulario
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        // Función para poner la primera letra de cada palabra en mayúscula
+        const capitalizeWords = (str) =>
+            str.replace(/\b\w/g, char => char.toUpperCase());
+
+        setInput(prev => ({
+            ...prev,
+            [name]:
+                name === "nombre" || name === "asignatura"
+                    ? capitalizeWords(value)
+                    : value
+        }));
+    };
+
     // Maneja el envío del formulario
     const handleSubmit = (e) => {
-        e.preventDefault(); // Previene el comportamiento por defecto del form
-        if (!input.trim()) return; // Si el input está vacío, no hace nada
+        e.preventDefault();
+        // Validación básica
+        if (!input.nombre.trim() || !input.asignatura.trim() || input.promedio === '') return;
+        const promedioNum = parseFloat(input.promedio);
+        if (isNaN(promedioNum) || promedioNum < 0 || promedioNum > 7) return;
+
         if (itemToEdit) {
-            // Si se está editando, actualiza el ítem
-            updateItem({ ...itemToEdit, value: input });
+            updateItem({ ...itemToEdit, ...input, promedio: promedioNum });
         } else {
-            // Si no, agrega un nuevo ítem
-            addItem(input);
+            addItem({ ...input, promedio: promedioNum });
         }
-        setInput(''); // Limpia el input después de enviar
+        setInput({ nombre: '', asignatura: '', promedio: '' });
     };
 
     // Renderiza el formulario
     return (
         <form onSubmit={handleSubmit}>
+            <h2 style={{ marginBottom: '18px', textAlign: 'center' }}>
+                {itemToEdit ? 'Editar Nueva Evaluación' : 'Agregar Nueva Evaluación'}
+            </h2>
             <input
-                className="mi-input" // Clase para estilos personalizados
-                value={input} // Valor controlado por el estado
-                onChange={e => setInput(e.target.value)} // Actualiza el estado al escribir
-                placeholder="Ingrese un dato" // Texto de ayuda
+                className="mi-input"
+                name="nombre"
+                value={input.nombre}
+                onChange={handleChange}
+                placeholder="Nombre del alumno"
+                autoComplete="off"
+            />
+            <input
+                className="mi-input"
+                name="asignatura"
+                value={input.asignatura}
+                onChange={handleChange}
+                placeholder="Asignatura"
+                autoComplete="off"
+            />
+            <input
+                className="mi-input"
+                name="promedio"
+                type="number"
+                step="0.1"
+                min="0"
+                max="7"
+                value={input.promedio}
+                onChange={handleChange}
+                placeholder="Promedio (0.0 - 7.0)"
+                autoComplete="off"
             />
             <button
-              className={itemToEdit ? "edit" : "add"} // Cambia la clase según si se edita o agrega
+              className={itemToEdit ? "edit" : "add"}
               type="submit"
             >
-              {itemToEdit ? 'Actualizar' : 'Agregar'} // Texto del botón según la acción
+              {itemToEdit ? 'Actualizar' : 'Agregar'}
             </button>
         </form>
     );

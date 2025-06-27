@@ -7,49 +7,51 @@ function App() {
     // Estado para almacenar los elementos, inicializa desde localStorage si existe
     const [items, setItems] = useState(() => {
         const storedItems = localStorage.getItem('items');
-        return storedItems ? JSON.parse(storedItems) : []; // Parsea los elementos almacenados o devuelve un array vacío
+        return storedItems ? JSON.parse(storedItems) : [];
     });
     
     // Estado para almacenar el elemento que se está editando
     const [itemToEdit, setItemToEdit] = useState(null);
 
     // Función para agregar un nuevo elemento
-    const addItem = (value) => {
-        setItems((prevItems) => [...prevItems, { id: Date.now(), value }]); // Agrega un nuevo elemento con un ID único
+    const addItem = (item) => {
+        setItems((prevItems) => [...prevItems, { ...item, id: Date.now() }]);
     };
 
     // Función para actualizar un elemento existente
     const updateItem = (updatedItem) => {
         setItems((prevItems) =>
-            prevItems.map((item) => (item.id === updatedItem.id ? updatedItem : item)) // Reemplaza el elemento editado
+            prevItems.map((item) => (item.id === updatedItem.id ? updatedItem : item))
         );
-        setItemToEdit(null); // Resetea el elemento a editar después de actualizar
+        setItemToEdit(null);
     };
 
     // Función para eliminar un elemento
     const deleteItem = (id) => {
-        setItems((prevItems) => prevItems.filter(item => item.id !== id)); // Filtra el elemento que se va a eliminar
+        setItems((prevItems) => prevItems.filter(item => item.id !== id));
     };
 
     // Función para establecer el elemento a editar
     const editItem = (item) => {
-        setItemToEdit(item); // Establece el elemento que se va a editar
+        setItemToEdit(item);
     };
 
     // Efecto para guardar los elementos en localStorage cada vez que cambian
     useEffect(() => {
-        localStorage.setItem('items', JSON.stringify(items)); // Almacena los elementos en formato JSON
+        localStorage.setItem('items', JSON.stringify(items));
     }, [items]);
 
     return (
         <div className="App">
-            <h1>CRUD con Local Storage</h1>
+            <h2>Evaluación de Alumnos</h2>
             <div className="form-container">
-                {/* Componente del formulario para agregar o editar elementos */}
                 <Form addItem={addItem} itemToEdit={itemToEdit} updateItem={updateItem} />
             </div>
+            <div className="evaluaciones-titulo">
+                <h3>Evaluaciones Guardadas</h3>
+            </div>
             <div className="list-container">
-                {/* Componente de la lista para mostrar los elementos */}
+    
                 <List items={items} deleteItem={deleteItem} editItem={editItem} />
             </div>
         </div>
