@@ -13,14 +13,14 @@ function Form({ addItem, itemToEdit, updateItem }) {
     // useEffect se ejecuta cuando cambia itemToEdit
     useEffect(() => {
         if (itemToEdit) {
-            // Si hay un ítem para editar, coloca sus valores en el formulario
+            // Convierte el promedio a string sin punto si es decimal
+            let promedioStr = itemToEdit.promedio ? String(itemToEdit.promedio).replace('.', '') : '';
             setInput({
                 nombre: itemToEdit.nombre || '',
                 asignatura: itemToEdit.asignatura || '',
-                promedio: itemToEdit.promedio || ''
+                promedio: promedioStr
             });
         } else {
-            // Si no, limpia el formulario
             setInput({ nombre: '', asignatura: '', promedio: '' });
         }
     }, [itemToEdit]);

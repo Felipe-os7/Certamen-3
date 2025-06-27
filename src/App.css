@@ -18,6 +18,7 @@ body {
   align-items: center;      /* Centra horizontalmente */
   justify-content: flex-start; /* Evita que todo se vaya al centro vertical si hay mucho contenido */
   min-height: 100vh; /* Ocupa toda la altura de la pantalla */
+  font-size: 100%;
 }
 
 /* Título principal */
@@ -58,18 +59,7 @@ form {
 }
 
 /* Input de texto principal */
-input[type="text"] {
-  flex: 1;
-  padding: 14px 16px;
-  border: 1px solid #333;
-  border-radius: 6px;
-  background: #2a2a2a;
-  font-size: 18px;
-  box-sizing: border-box;
-  height: 48px;
-  color: #e0e0e0;
-  transition: border-color 0.3s;
-}
+
 
 /* Input de texto cuando está enfocado */
 input[type="text"]:focus {
