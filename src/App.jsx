@@ -49,7 +49,7 @@ function App() {
             </div>
             {items.length > 0 && (
                 <div className="evaluaciones-titulo">
-                    <h3>Evaluaciones Guardadas</h3>
+                    <h4>Evaluaciones Guardadas</h4>
                 </div>
             )}
             <div className="list-container">

@@ -74,8 +74,14 @@ function Form({ addItem, itemToEdit, updateItem }) {
     // Renderiza el formulario
     return (
         <form onSubmit={handleSubmit}>
-            <h2 style={{ marginBottom: '18px', textAlign: 'center' }}>
-                {itemToEdit ? 'Editar Nueva Evaluación' : 'Agregar Nueva Evaluación'}
+            <h2
+                style={{
+                    marginBottom: '18px',
+                    textAlign: 'center',
+                    fontSize: '1.2rem' // Reduce el tamaño un 20%
+                }}
+            >
+                {itemToEdit ? 'Editar Evaluación' : 'Agregar Evaluación'}
             </h2>
             <input
                 className="mi-input"
