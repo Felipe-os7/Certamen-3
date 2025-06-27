@@ -35,13 +35,19 @@ function Form({ addItem, itemToEdit, updateItem }) {
         const capitalizeWords = (str) =>
             str.replace(/\b\w/g, char => char.toUpperCase());
 
+        // Si el campo es nombre, elimina los números
+        let newValue = value;
+        if (name === "nombre") {
+            newValue = newValue.replace(/[0-9]/g, "");
+        }
+
         // Actualiza el estado del input, capitalizando si es nombre o asignatura
         setInput(prev => ({
             ...prev,
             [name]:
                 name === "nombre" || name === "asignatura"
-                    ? capitalizeWords(value)
-                    : value
+                    ? capitalizeWords(newValue)
+                    : newValue
         }));
     };
 
