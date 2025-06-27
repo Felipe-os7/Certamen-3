@@ -45,9 +45,22 @@ function Form({ addItem, itemToEdit, updateItem }) {
     // Maneja el envío del formulario
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Validación básica
         if (!input.nombre.trim() || !input.asignatura.trim() || input.promedio === '') return;
-        const promedioNum = parseFloat(input.promedio);
+
+        let promedioStr = input.promedio.replace('.', ''); 
+        let promedioNum;
+
+        if (promedioStr.length === 2) {
+            promedioNum = parseFloat(`${promedioStr[0]}.${promedioStr[1]}`);
+        } else if (promedioStr.length === 3) {
+
+            promedioNum = parseFloat(`${promedioStr[0]}.${promedioStr.slice(1)}`);
+        } else if (promedioStr.length === 1) {
+            promedioNum = parseFloat(`${promedioStr[0]}.0`);
+        } else {
+            promedioNum = parseFloat(input.promedio);
+        }
+
         if (isNaN(promedioNum) || promedioNum < 0 || promedioNum > 7) return;
 
         if (itemToEdit) {
@@ -83,10 +96,8 @@ function Form({ addItem, itemToEdit, updateItem }) {
             <input
                 className="mi-input"
                 name="promedio"
-                type="number"
-                step="0.1"
-                min="0"
-                max="7"
+                type="text"
+                maxLength={4}
                 value={input.promedio}
                 onChange={handleChange}
                 placeholder="Promedio (0.0 - 7.0)"

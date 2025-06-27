@@ -47,11 +47,12 @@ function App() {
             <div className="form-container">
                 <Form addItem={addItem} itemToEdit={itemToEdit} updateItem={updateItem} />
             </div>
-            <div className="evaluaciones-titulo">
-                <h3>Evaluaciones Guardadas</h3>
-            </div>
+            {items.length > 0 && (
+                <div className="evaluaciones-titulo">
+                    <h3>Evaluaciones Guardadas</h3>
+                </div>
+            )}
             <div className="list-container">
-    
                 <List items={items} deleteItem={deleteItem} editItem={editItem} />
             </div>
         </div>
